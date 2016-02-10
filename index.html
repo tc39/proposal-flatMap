@@ -9,8 +9,8 @@ contributors: Brian Terlson
 
 <emu-intro>
   <h1>Introduction</h1>
-  <p>`Array.prototype.flatten` returns a new array that is one dimensional with all sub-array elements concatted into it recursively.</p>
-  <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
+  <p>`Array.prototype.flatten` returns a new array with all sub-array elements concatted into it recursively up to the specified depth.</p>
+  <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten of depth 1, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
 </emu-intro>
 
 <emu-clause id="sec-Array.prototype.flatMap">
@@ -26,18 +26,21 @@ contributors: Brian Terlson
   </emu-alg>
 </emu-clause>
 <emu-clause id="sec-Array.prototype.flatten">
-  <h1>Array.prototype.flatten()</h1>
-  <p>When the `flatten` method is called with no arguments, the following steps are taken:</p>
+  <h1>Array.prototype.flatten( [ _depth_ ] )</h1>
+  <p>When the `flatten` method is called with zero or one arguments, the following steps are taken:</p>
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
     1. Let _A_ be ? ArraySpeciesCreate(_O_, _len_).
-    1. Perform ? FlattenIntoArray(_A_, _O_, 0).
+    1. Let _depthNum_ be *Infinity*.
+    1. If _depth_ was was provided, then
+      1. Set _depthNum_ to ? ToNumber(_depth_). 
+    1. Perform ? FlattenIntoArray(_A_, _O_, 0, _depthNum_).
     1. Return _A_.
   </emu-alg>
 </emu-clause>
 
 <emu-clause id="sec-FlattenIntoArray" aoid=FlattenIntoArray>
-  <h1>FlattenIntoArray(_target_, _source_, _start_ [ , _mapperFunction_, _thisArg_ ])</h1>
+  <h1>FlattenIntoArray(_target_, _source_, _start_, _depth_ [ , _mapperFunction_, _thisArg_ ])</h1>
   <emu-alg>
     1. Let _targetIndex_ be _start_.
     1. Let _sourceIndex_ be 0.
@@ -50,8 +53,8 @@ contributors: Brian Terlson
         1. If _mapperFunction_ was provided, then
           1. Set _element_ to ? Call(_mapperFunction_, _thisArg_ , &laquo; _element_, _sourceIndex_, _target_ &raquo;).
         1. Let _spreadable_ be ? IsConcatSpreadable(_element_).
-        1. If _spreadable_ is *true*, then
-          1. Let _nextIndex_ be ? FlattenIntoArray(_target_, _element_, _targetIndex_).
+        1. If _spreadable_ is *true* and _depth_ &ge; 0, then
+          1. Let _nextIndex_ be ? FlattenIntoArray(_target_, _element_, _targetIndex_, _depth_ - 1).
           1. Set _targetIndex_ to _nextIndex_.
         1. Else,
           1. If _targetIndex_&ge;2<sup>53</sup>-1, throw a *TypeError* exception.
