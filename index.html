@@ -20,7 +20,7 @@ contributors: Brian Terlson
     1. Let _O_ be ? ToObject(*this* value).
     1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
     1. If _thisArg_ was supplied, let _T_ be _thisArg_; else let _T_ be *undefined*.
-    1. Let _A_ be ? ArraySpeciesCreate(_O_, _len_).
+    1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
     1. Perform ? FlattenIntoArray(_A_, _O_, 0, 1, _callbackFn_, _T_).
     1. Return _A_.
   </emu-alg>
@@ -30,7 +30,7 @@ contributors: Brian Terlson
   <p>When the `flatten` method is called with zero or one arguments, the following steps are taken:</p>
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
-    1. Let _A_ be ? ArraySpeciesCreate(_O_, _len_).
+    1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
     1. Let _depthNum_ be *Infinity*.
     1. If _depth_ was was provided, then
       1. Set _depthNum_ to ? ToNumber(_depth_). 
