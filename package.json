@@ -2,7 +2,7 @@
   "name": "proposal-flatmap",
   "version": "1.0.0",
   "description": "",
-  "main": "ecmarkup.js",
+  "main": "polyfill.js",
   "dependencies": {
     "ecmarkup": "^3.11.5"
   },
