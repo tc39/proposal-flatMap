@@ -8,7 +8,7 @@ if (typeof Array.prototype.flatMap !== 'function') {
   // eslint-disable-next-line no-extend-native
   Object.defineProperty(Array.prototype, 'flatMap', {
     enumerable: false,
-    // https://bterlson.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
+    // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
     value: function flatMap (callback, thisArg = undefined) {
       const O = toObject(this)
       const A = arraySpeciesCreate(O, 0)
@@ -25,7 +25,7 @@ if (typeof Array.prototype.flatten !== 'function') {
   // eslint-disable-next-line no-extend-native
   Object.defineProperty(Array.prototype, 'flatten', {
     enumerable: false,
-    // https://bterlson.github.io/proposal-flatMap/#sec-Array.prototype.flatten
+    // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
     value: function flatten (depth = Infinity) {
       const O = toObject(this)
       const A = arraySpeciesCreate(O, 0)
@@ -36,7 +36,7 @@ if (typeof Array.prototype.flatten !== 'function') {
   })
 }
 
-// https://bterlson.github.io/proposal-flatMap/#sec-FlattenIntoArray
+// https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
 function flattenIntoArray (target, source, start, depth, mapper, thisArg) {
   let targetIndex = start
   let sourceIndex = 0
@@ -64,12 +64,12 @@ function flattenIntoArray (target, source, start, depth, mapper, thisArg) {
 
       // spec deviation: the spec specifies "depth >= 0",
       // but that incorrectly flattens one level too far.
-      // https://github.com/bterlson/proposal-flatMap/issues/11
+      // https://github.com/tc39/proposal-flatMap/issues/11
       if (spreadable && depth > 0) {
         const nextIndex = flattenIntoArray(target, element, targetIndex, depth - 1)
         // spec deviation: decrement targetIndex by 1 here
         // it will get incremented back at the tail of the loop
-        // https://github.com/bterlson/proposal-flatMap/issues/13
+        // https://github.com/tc39/proposal-flatMap/issues/13
         targetIndex = nextIndex - 1
       } else {
         if (targetIndex !== toLength(targetIndex)) {
