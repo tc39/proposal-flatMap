@@ -4,13 +4,15 @@
   "description": "",
   "main": "ecmarkup.js",
   "dependencies": {
-    "ecmarkup": "^3.0.1"
+    "ecmarkup": "^3.11.5"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "update-pages": "node node_modules/ecmarkup/bin/ecmarkup.js index.html _index.html --css _ecmarkup.css --js _ecmarkup.js --verbose && git checkout gh-pages && rm -f index.html ecmarkup.css ecmarkup.js && mv _index.html index.html && mv _ecmarkup.css ecmarkup.css && mv _ecmarkup.js ecmarkup.js && git add index.html ecmarkup.js ecmarkup.css && git commit -m \"update pages\" && git checkout master"
+    "build": "ecmarkup proposal.html index.html --verbose --toc",
+    "update-pages": "./publi.sh"
   },
   "author": "Brian Terlson",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "private": true
 }
