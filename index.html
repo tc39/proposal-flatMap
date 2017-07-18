@@ -33,7 +33,7 @@ contributors: Brian Terlson
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
     1. Let _depthNum_ be 1.
     1. If _depth_ was provided, then
-      1. Set _depthNum_ to ? ToNumber(_depth_). 
+      1. Set _depthNum_ to ? ToInteger(_depth_). 
     1. Perform ? FlattenIntoArray(_A_, _O_, 0, _depthNum_).
     1. Return _A_.
   </emu-alg>
