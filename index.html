@@ -53,7 +53,7 @@ contributors: Brian Terlson
         1. If _mapperFunction_ was provided, then
           1. Set _element_ to ? Call(_mapperFunction_, _thisArg_ , &laquo; _element_, _sourceIndex_, _target_ &raquo;).
         1. Let _spreadable_ be ? IsConcatSpreadable(_element_).
-        1. If _spreadable_ is *true* and _depth_ &ge; 0, then
+        1. If _spreadable_ is *true* and _depth_ &gt; 0, then
           1. Let _nextIndex_ be ? FlattenIntoArray(_target_, _element_, _targetIndex_, _depth_ - 1).
           1. Set _targetIndex_ to _nextIndex_.
         1. Else,
