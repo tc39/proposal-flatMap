@@ -7,7 +7,7 @@ contributors: Brian Terlson
 <script src="ecmarkup.js"></script>
 <link rel=stylesheet href="ecmarkup.css">
 
-<emu-intro>
+<emu-intro id="intro">
   <h1>Introduction</h1>
   <p>`Array.prototype.flatten` returns a new array with all sub-array elements concatted into it recursively up to the specified depth.</p>
   <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten of depth 1, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
