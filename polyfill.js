@@ -14,8 +14,10 @@ if (typeof Array.prototype.flatMap !== 'function') {
     // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
     value: function flatMap(callback, thisArg = undefined) {
       const O = ES.ToObject(this);
+      // Could ES.IsCallable check callback, but it's better to let it throw a runtime error
+      const sourceLen = ES.ToLength(O.length);
       const A = new (ES.SpeciesConstructor(O, Array))(0);
-      flattenIntoArray(A, O, 0, 1, callback, thisArg);
+      flattenIntoArray(A, O, sourceLen, 0, 1, callback, thisArg);
       return A;
     },
   });
@@ -29,9 +31,10 @@ if (typeof Array.prototype.flatten !== 'function') {
     // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
     value: function flatten(depthArg = 1) {
       const O = ES.ToObject(this);
+      const sourceLen = ES.ToLength(O.length);
       const A = new (ES.SpeciesConstructor(O, Array))(0);
       const depth = ES.ToInteger(depthArg);
-      flattenIntoArray(A, O, 0, depth);
+      flattenIntoArray(A, O, sourceLen, 0, depth);
       return A;
     },
   });
@@ -41,18 +44,18 @@ if (typeof Array.prototype.flatten !== 'function') {
 /**
  * @param {any[]} target
  * @param {any[]} source
+ * @param {number} startLen
  * @param {number} start
  * @param {number} depth
  * @param {Function=} mapper
  * @param {any=} thisArg
  */
-function flattenIntoArray(target, source, start, depth, mapper, thisArg) {
+function flattenIntoArray(target, source, sourceLen, start, depth, mapper, thisArg) {
   let targetIndex = start;
   let sourceIndex = 0;
-  const sourceLen = ES.ToLength(source.length);
 
   while (sourceIndex < sourceLen) {
-    const P = `${sourceIndex}`;
+    const P = ES.ToString(sourceIndex);
     if (P in source) {
       let element = source[P];
       if (mapper) {
@@ -72,7 +75,8 @@ function flattenIntoArray(target, source, start, depth, mapper, thisArg) {
       }
 
       if (spreadable && depth > 0) {
-        const nextIndex = flattenIntoArray(target, element, targetIndex, depth - 1);
+        const elementLen = ES.ToLength(element.length);
+        const nextIndex = flattenIntoArray(target, element, elementLen, targetIndex, depth - 1);
         targetIndex = nextIndex - 1;
       } else {
         if (targetIndex !== ES.ToLength(targetIndex)) {
