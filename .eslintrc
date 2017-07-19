@@ -1,0 +1,9 @@
+{
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "rules": {
+    "no-use-before-define": ["error", { "functions": false }]
+  }
+}
