@@ -17,7 +17,7 @@ contributors: Brian Terlson
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
     1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
-    1. If _thisArg_ was supplied, let _T_ be _thisArg_; else let _T_ be *undefined*.
+    1. If _thisArg_ is present, let _T_ be _thisArg_; else let _T_ be *undefined*.
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
     1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, 0, 1, _callbackFn_, _T_).
@@ -49,7 +49,7 @@ contributors: Brian Terlson
       1. Let _exists_ be ? HasProperty(_source_, _P_).
       1. If _exists_ is *true*, then
         1. Let _element_ be ? Get(_source_, _P_).
-        1. If _mapperFunction_ was supplied, then
+        1. If _mapperFunction_ is present, then
           1. Set _element_ to ? Call(_mapperFunction_, _thisArg_ , &laquo; _element_, _sourceIndex_, _target_ &raquo;).
         1. Let _spreadable_ be ? IsConcatSpreadable(_element_).
         1. If _spreadable_ is *true* and _depth_ &gt; 0, then
