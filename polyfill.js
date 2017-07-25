@@ -56,35 +56,33 @@ function flattenIntoArray(target, source, sourceLen, start, depth, mapper, thisA
 
   while (sourceIndex < sourceLen) {
     const P = ES.ToString(sourceIndex);
-    if (P in source) {
-      let element = source[P];
-      if (mapper) {
-        element = mapper.call(thisArg, element, sourceIndex, target);
-      }
-      let spreadable;
-      // https://tc39.github.io/ecma262/#sec-isconcatspreadable
-      if (typeof element !== 'object') {
-        spreadable = false;
+    let element = source[P];
+    if (mapper) {
+      element = mapper.call(thisArg, element, sourceIndex, target);
+    }
+    let spreadable;
+    // https://tc39.github.io/ecma262/#sec-isconcatspreadable
+    if (typeof element !== 'object') {
+      spreadable = false;
+    } else {
+      spreadable = element[Symbol.isConcatSpreadable];
+      if (typeof spreadable !== 'undefined') {
+        spreadable = !!spreadable;
       } else {
-        spreadable = element[Symbol.isConcatSpreadable];
-        if (typeof spreadable !== 'undefined') {
-          spreadable = !!spreadable;
-        } else {
-          spreadable = Array.isArray(element);
-        }
+        spreadable = Array.isArray(element);
       }
+    }
 
-      if (spreadable && depth > 0) {
-        const elementLen = ES.ToLength(element.length);
-        const nextIndex = flattenIntoArray(target, element, elementLen, targetIndex, depth - 1);
-        targetIndex = nextIndex - 1;
-      } else {
-        if (targetIndex !== ES.ToLength(targetIndex)) {
-          throw TypeError();
-        }
-        // eslint-disable-next-line no-param-reassign
-        target[targetIndex] = element;
+    if (spreadable && depth > 0) {
+      const elementLen = ES.ToLength(element.length);
+      const nextIndex = flattenIntoArray(target, element, elementLen, targetIndex, depth - 1);
+      targetIndex = nextIndex - 1;
+    } else {
+      if (targetIndex !== ES.ToLength(targetIndex)) {
+        throw TypeError();
       }
+      // eslint-disable-next-line no-param-reassign
+      target[targetIndex] = element;
     }
     targetIndex += 1;
     sourceIndex += 1;
