@@ -17,7 +17,7 @@ if (typeof Array.prototype.flatMap !== 'function') {
       // Could ES.IsCallable check callback, but it's better to let it throw a runtime error
       const sourceLen = ES.ToLength(O.length);
       const A = new (ES.SpeciesConstructor(O, Array))(0);
-      flattenIntoArray(A, O, sourceLen, 0, 1, callback, thisArg);
+      flattenIntoArray(A, O, O, sourceLen, 0, 1, callback, thisArg);
       return A;
     },
   });
@@ -34,7 +34,7 @@ if (typeof Array.prototype.flatten !== 'function') {
       const sourceLen = ES.ToLength(O.length);
       const A = new (ES.SpeciesConstructor(O, Array))(0);
       const depth = ES.ToInteger(depthArg);
-      flattenIntoArray(A, O, sourceLen, 0, depth);
+      flattenIntoArray(A, O, O, sourceLen, 0, depth);
       return A;
     },
   });
@@ -50,7 +50,7 @@ if (typeof Array.prototype.flatten !== 'function') {
  * @param {Function=} mapper
  * @param {any=} thisArg
  */
-function flattenIntoArray(target, source, sourceLen, start, depth, mapper, thisArg) {
+function flattenIntoArray(target, original, source, sourceLen, start, depth, mapper, thisArg) {
   let targetIndex = start;
   let sourceIndex = 0;
 
@@ -59,7 +59,7 @@ function flattenIntoArray(target, source, sourceLen, start, depth, mapper, thisA
     if (P in source) {
       let element = source[P];
       if (mapper) {
-        element = mapper.call(thisArg, element, sourceIndex, target);
+        element = mapper.call(thisArg, element, sourceIndex, original);
       }
       let spreadable;
       // https://tc39.github.io/ecma262/#sec-isconcatspreadable
@@ -76,7 +76,7 @@ function flattenIntoArray(target, source, sourceLen, start, depth, mapper, thisA
 
       if (spreadable && depth > 0) {
         const elementLen = ES.ToLength(element.length);
-        const nextIndex = flattenIntoArray(target, element, elementLen, targetIndex, depth - 1);
+        const nextIndex = flattenIntoArray(target, original, element, elementLen, targetIndex, depth - 1);
         targetIndex = nextIndex - 1;
       } else {
         if (targetIndex !== ES.ToLength(targetIndex)) {
