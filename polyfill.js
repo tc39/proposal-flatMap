@@ -85,8 +85,8 @@ function flattenIntoArray(target, original, source, sourceLen, start, depth, map
         // eslint-disable-next-line no-param-reassign
         target[targetIndex] = element;
       }
+      targetIndex += 1;
     }
-    targetIndex += 1;
     sourceIndex += 1;
   }
   return targetIndex;
