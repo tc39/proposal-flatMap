@@ -61,18 +61,7 @@ function flattenIntoArray(target, original, source, sourceLen, start, depth, map
       if (mapper) {
         element = mapper.call(thisArg, element, sourceIndex, original);
       }
-      let spreadable;
-      // https://tc39.github.io/ecma262/#sec-isconcatspreadable
-      if (typeof element !== 'object') {
-        spreadable = false;
-      } else {
-        spreadable = element[Symbol.isConcatSpreadable];
-        if (typeof spreadable !== 'undefined') {
-          spreadable = !!spreadable;
-        } else {
-          spreadable = Array.isArray(element);
-        }
-      }
+      let spreadable = Array.isArray(element);
 
       if (spreadable && depth > 0) {
         const elementLen = ES.ToLength(element.length);
