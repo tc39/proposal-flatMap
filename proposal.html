@@ -20,8 +20,8 @@ contributors: Michael Ficarra and Brian Terlson
     1. If _thisArg_ is present, let _T_ be _thisArg_; else let _T_ be *undefined*.
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
-    1. Let _lastIndex_ be ? FlattenIntoArray(_A_, _O_, _O_, _sourceLen_, 0, 1, _mapperFunction_, _T_).
-    1. Perform ? Set(_A_, *"length"*, _lastIndex_ + 1, *true*).
+    1. Let _nextIndex_ be ? FlattenIntoArray(_A_, _O_, _O_, _sourceLen_, 0, 1, _mapperFunction_, _T_).
+    1. Perform ? Set(_A_, *"length"*, _nextIndex_, *true*).
     1. Return _A_.
   </emu-alg>
 </emu-clause>
@@ -35,8 +35,8 @@ contributors: Michael Ficarra and Brian Terlson
       1. Set _depthNum_ to ? ToInteger(_depth_).
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
-    1. Let _lastIndex_ be ? FlattenIntoArray(_A_, _O_, _O_, _sourceLen_, 0, _depthNum_).
-    1. Perform ? Set(_A_, *"length"*, _lastIndex_ + 1, *true*).
+    1. Let _nextIndex_ be ? FlattenIntoArray(_A_, _O_, _O_, _sourceLen_, 0, _depthNum_).
+    1. Perform ? Set(_A_, *"length"*, _nextIndex_, *true*).
     1. Return _A_.
   </emu-alg>
 </emu-clause>
