@@ -12,15 +12,15 @@ contributors: Michael Ficarra and Brian Terlson
 </emu-intro>
 
 <emu-clause id="sec-Array.prototype.flatMap">
-  <h1>Array.prototype.flatMap ( _callbackfn_ [ , _thisArg_ ] )</h1>
+  <h1>Array.prototype.flatMap ( _mapperFunction_ [ , _thisArg_ ] )</h1>
   <p>When the `flatMap` method is called with one or two arguments, the following steps are taken:</p>
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
-    1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
+    1. If IsCallable(_mapperFunction_) is *false*, throw a *TypeError* exception.
     1. If _thisArg_ is present, let _T_ be _thisArg_; else let _T_ be *undefined*.
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
-    1. Let _lastIndex_ be ? FlattenIntoArray(_A_, _O_, _O_, _sourceLen_, 0, 1, _callbackFn_, _T_).
+    1. Let _lastIndex_ be ? FlattenIntoArray(_A_, _O_, _O_, _sourceLen_, 0, 1, _mapperFunction_, _T_).
     1. Perform ? Set(_A_, *"length"*, _lastIndex_ + 1, *true*).
     1. Return _A_.
   </emu-alg>
