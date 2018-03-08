@@ -8,19 +8,31 @@ contributors: Michael Ficarra and Brian Terlson
 <emu-intro id="intro">
   <h1>Introduction</h1>
   <p>`Array.prototype.flatten` returns a new array with all sub-array elements concatted into it recursively up to the specified depth.</p>
-  <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten of depth 1, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
+  <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
 </emu-intro>
 
 <emu-clause id="sec-Array.prototype.flatMap">
-  <h1>Array.prototype.flatMap ( _mapperFunction_ [ , _thisArg_ ] )</h1>
-  <p>When the `flatMap` method is called with one or two arguments, the following steps are taken:</p>
+  <h1>Array.prototype.flatMap ( [ _depth_ ] [ , _mapperFunction_ [ , _thisArg_ ] ] )</h1>
+  <p>When the `flatMap` method is called with one or two or three arguments, the following steps are taken:</p>
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
-    1. If IsCallable(_mapperFunction_) is *false*, throw a *TypeError* exception.
-    1. If _thisArg_ is present, let _T_ be _thisArg_; else let _T_ be *undefined*.
+    1. Let _depthNum_ be 1.
+    1. Let _T_ be *undefined*.
+    1. If IsCallable(_depth_) is *true*, then
+      1. Set _thisArg_ to _mapperFunction_.
+      1. Set _mapperFunction_ to _depth_.
+      1. Set _depth_ to *undefined*.
+    1. If _depth_ is not *undefined*, then
+      1. Set _depthNum_ to ? ToInteger(_depth_).
+    1. If _mapperFunction_ is not *undefined*, then
+	  1. If IsCallable(_mapperFunction_) is *false*, throw a *TypeError* exception.
+    1. Else _mapperFunction_ must be *undefined*,
+      1. If _thisArg_ is not *undefined*, throw a *TypeError* exception.
+    1. If _thisArg_ is not *undefined*, then
+      1. Set _T_ to _thisArg_.
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
-    1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, 0, 1, _mapperFunction_, _T_).
+    1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, 0, _depthNum_, _mapperFunction_, _T_).
     1. Return _A_.
   </emu-alg>
 </emu-clause>
