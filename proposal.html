@@ -1,5 +1,5 @@
 <pre class=metadata>
-title: Array.prototype.flatMap &amp; Array.prototype.flatten
+title: Array.prototype.flatMap &amp; Array.prototype.flat
 toc: false
 stage: 3
 contributors: Michael Ficarra and Brian Terlson
@@ -7,8 +7,8 @@ contributors: Michael Ficarra and Brian Terlson
 
 <emu-intro id="intro">
   <h1>Introduction</h1>
-  <p>`Array.prototype.flatten` returns a new array with all sub-array elements concatted into it recursively up to the specified depth.</p>
-  <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten of depth 1, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
+  <p>`Array.prototype.flat` returns a new array with all sub-array elements concatted into it recursively up to the specified depth.</p>
+  <p>`Array.prototype.flatMap` first maps each element using a mapping function, then returns a new flat array of the results. It is identical to a map followed by a flat of depth 1, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
 </emu-intro>
 
 <emu-clause id="sec-Array.prototype.flatMap">
@@ -24,9 +24,9 @@ contributors: Michael Ficarra and Brian Terlson
     1. Return _A_.
   </emu-alg>
 </emu-clause>
-<emu-clause id="sec-Array.prototype.flatten">
-  <h1>Array.prototype.flatten( [ _depth_ ] )</h1>
-  <p>When the `flatten` method is called with zero or one arguments, the following steps are taken:</p>
+<emu-clause id="sec-Array.prototype.flat">
+  <h1>Array.prototype.flat( [ _depth_ ] )</h1>
+  <p>When the `flat` method is called with zero or one arguments, the following steps are taken:</p>
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
