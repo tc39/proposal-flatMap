@@ -25,8 +25,8 @@ contributors: Michael Ficarra and Brian Terlson
   </emu-alg>
 </emu-clause>
 <emu-clause id="sec-Array.prototype.flatten">
-  <h1>Array.prototype.flatten( [ _depth_ ] )</h1>
-  <p>When the `flatten` method is called with zero or one arguments, the following steps are taken:</p>
+  <h1>Array.prototype.flatten</h1>
+  <p>`Array.prototype.flatten` is an accessor property. Its get accessor function returns a function named `"flatten"` with length *0* which, when called with parameter _depth_, performs the following steps:</p>
   <emu-alg>
     1. Let _O_ be ? ToObject(*this* value).
     1. Let _sourceLen_ be ? ToLength(? Get(_O_, `"length"`)).
@@ -36,6 +36,12 @@ contributors: Michael Ficarra and Brian Terlson
     1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
     1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, 0, _depthNum_).
     1. Return _A_.
+  </emu-alg>
+  <p>Its set accessor function performs the following steps when called with parameter _replacement_:</p>
+  <emu-alg>
+    1. If _replacement_ was not provided, let _replacement_ be *undefined*.
+    1. Perform ? DefinePropertyOrThrow(*this* value, `"flatten"`, PropertyDescriptor { [[Value]]: _replacement_, [[Writable]]: *true*, [[Enumerable]]: *true*, [[Configurable]]: *true* }).
+    1. Return _replacement_.
   </emu-alg>
 </emu-clause>
 
