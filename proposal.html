@@ -2,7 +2,7 @@
 title: Array.prototype.flatMap &amp; Array.prototype.flat
 toc: false
 stage: 3
-contributors: Michael Ficarra and Brian Terlson
+contributors: Michael Ficarra, Brian Terlson, and Mathias Bynens
 </pre>
 
 <emu-intro id="intro">
@@ -65,4 +65,28 @@ contributors: Michael Ficarra and Brian Terlson
       1. Increase _sourceIndex_ by 1.
     1. Return _targetIndex_.
   </emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-array.prototype-@@unscopables">
+  <h1>Array.prototype [ @@unscopables ]</h1>
+  <p>The initial value of the @@unscopables data property is an object created by the following steps:</p>
+  <emu-alg>
+    1. Let _unscopableList_ be ObjectCreate(*null*).
+    1. Perform CreateDataProperty(_unscopableList_, `"copyWithin"`, *true*).
+    1. Perform CreateDataProperty(_unscopableList_, `"entries"`, *true*).
+    1. Perform CreateDataProperty(_unscopableList_, `"fill"`, *true*).
+    1. Perform CreateDataProperty(_unscopableList_, `"find"`, *true*).
+    1. Perform CreateDataProperty(_unscopableList_, `"findIndex"`, *true*).
+    1. <ins>Perform CreateDataProperty(_unscopableList_, `"flat"`, *true*).</ins>
+    1. <ins>Perform CreateDataProperty(_unscopableList_, `"flatMap"`, *true*).</ins>
+    1. Perform CreateDataProperty(_unscopableList_, `"includes"`, *true*).
+    1. Perform CreateDataProperty(_unscopableList_, `"keys"`, *true*).
+    1. Perform CreateDataProperty(_unscopableList_, `"values"`, *true*).
+    1. Assert: Each of the above calls <del>will</del> return *true*.
+    1. Return _unscopableList_.
+  </emu-alg>
+  <p>This property has the attributes { [[Writable]]: *false*, [[Enumerable]]: *false*, [[Configurable]]: *true* }.</p>
+  <emu-note>
+    <p>The own property names of this object are property names that were not included as standard properties of `Array.prototype` <del>prior to</del> <ins>in earlier editions of</ins> the ECMAScript <del>2015</del> specification. These names are ignored for `with` statement binding purposes in order to preserve the behaviour of existing code that might use one of these names as a binding in an outer scope that is shadowed by a `with` statement whose binding object is an Array object.</p>
+  </emu-note>
 </emu-clause>
