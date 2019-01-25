@@ -11,7 +11,7 @@ contributors: Michael Ficarra, Brian Terlson, and Mathias Bynens
   <p>`Array.prototype.flatMap` first maps each element using a mapping function, then flattens the result into a new array. It is identical to a map followed by a flatten of depth 1, but flatMap is quite often useful and merging both into one method is slightly more efficient.</p>
 </emu-intro>
 
-<emu-clause id="sec-Array.prototype.flatMap">
+<emu-clause id="sec-array.prototype.flatmap">
   <h1>Array.prototype.flatMap ( _mapperFunction_ [ , _thisArg_ ] )</h1>
   <p>When the `flatMap` method is called with one or two arguments, the following steps are taken:</p>
   <emu-alg>
@@ -24,7 +24,8 @@ contributors: Michael Ficarra, Brian Terlson, and Mathias Bynens
     1. Return _A_.
   </emu-alg>
 </emu-clause>
-<emu-clause id="sec-Array.prototype.flat">
+
+<emu-clause id="sec-array.prototype.flat">
   <h1>Array.prototype.flat( [ _depth_ ] )</h1>
   <p>When the `flat` method is called with zero or one arguments, the following steps are taken:</p>
   <emu-alg>
@@ -39,7 +40,7 @@ contributors: Michael Ficarra, Brian Terlson, and Mathias Bynens
   </emu-alg>
 </emu-clause>
 
-<emu-clause id="sec-FlattenIntoArray" aoid="FlattenIntoArray">
+<emu-clause id="sec-flattenintoarray" aoid="FlattenIntoArray">
   <h1>FlattenIntoArray(_target_, _source_, _sourceLen_, _start_, _depth_ [ , _mapperFunction_, _thisArg_ ])</h1>
   <emu-alg>
     1. Let _targetIndex_ be _start_.
